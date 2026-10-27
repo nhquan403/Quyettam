@@ -1,0 +1,127 @@
+@import 'tailwindcss';
+@import '@fontsource/be-vietnam-pro/400.css';
+@import '@fontsource/be-vietnam-pro/500.css';
+@import '@fontsource/be-vietnam-pro/600.css';
+@import '@fontsource/be-vietnam-pro/700.css';
+
+@theme {
+  --font-sans: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
+  --color-bg: #f6f7fb;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef0f8;
+  --color-ink: #1e2235;
+  --color-muted: #5b6178;
+  --color-line: #e2e5f0;
+  --color-primary: #4338ca;
+  --color-primary-ink: #ffffff;
+  --color-primary-soft: #e0e7ff;
+  --color-primary-strong: #3730a3;
+  --color-accent: #c2410c;
+  --color-accent-soft: #ffedd5;
+  --color-success: #15803d;
+  --color-success-soft: #dcfce7;
+  --color-danger: #b91c1c;
+  --color-danger-soft: #fee2e2;
+  --color-warn-soft: #fef3c7;
+  --color-warn-ink: #854d0e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f1220;
+    --color-surface: #191d30;
+    --color-surface-2: #222741;
+    --color-ink: #eceefa;
+    --color-muted: #a3a9c4;
+    --color-line: #2d3352;
+    --color-primary: #818cf8;
+    --color-primary-ink: #11142a;
+    --color-primary-soft: #2a2f5a;
+    --color-primary-strong: #a5b4fc;
+    --color-accent: #fb923c;
+    --color-accent-soft: #3d2516;
+    --color-success: #4ade80;
+    --color-success-soft: #173323;
+    --color-danger: #f87171;
+    --color-danger-soft: #3b1a1d;
+    --color-warn-soft: #3a2e12;
+    --color-warn-ink: #fcd34d;
+  }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  @apply bg-bg text-ink font-sans antialiased;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@layer components {
+  .card {
+    @apply rounded-3xl bg-surface border border-line shadow-[0_1px_2px_rgba(20,24,60,0.04),0_8px_24px_-12px_rgba(20,24,60,0.12)];
+  }
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-4 py-2.5 font-semibold
+      transition-[transform,background-color,color,box-shadow] duration-150 active:scale-[0.97]
+      focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-primary
+      disabled:opacity-50 disabled:pointer-events-none cursor-pointer select-none;
+  }
+  .btn-primary {
+    @apply bg-primary text-primary-ink hover:bg-primary-strong;
+  }
+  .btn-accent {
+    @apply bg-accent text-white dark:text-[#1f1206];
+  }
+  .btn-soft {
+    @apply bg-primary-soft text-primary-strong;
+  }
+  .btn-ghost {
+    @apply bg-surface-2 text-ink;
+  }
+  .btn-danger {
+    @apply bg-danger-soft text-danger;
+  }
+  .chip {
+    @apply inline-flex min-h-9 items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1 text-sm font-medium;
+  }
+  .label {
+    @apply block text-sm font-semibold text-muted mb-1.5;
+  }
+  .input {
+    @apply w-full rounded-2xl border border-line bg-surface px-4 py-3 text-base text-ink placeholder:text-muted/70
+      focus:outline-3 focus:outline-primary/40 focus:border-primary;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.flip {
+  perspective: 1200px;
+}
+.flip-inner {
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flip-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
+}

@@ -1,0 +1,284 @@
+{
+  "id": "c1-u01",
+  "chapter": 1,
+  "chapterTitle": "After getting up",
+  "unit": 1,
+  "title": "Thức dậy",
+  "phrases": [
+    {
+      "id": "alarm-goes-off",
+      "en": "the alarm clock goes off",
+      "variants": [
+        "the alarm clock rings"
+      ],
+      "vi": "đồng hồ báo thức đổ chuông (kêu)",
+      "emoji": "⏰",
+      "situation": "6 giờ sáng, cái đồng hồ bên giường bắt đầu reo inh ỏi"
+    },
+    {
+      "id": "turn-over-in-bed",
+      "en": "turn over in bed",
+      "variants": [
+        "roll over in bed"
+      ],
+      "vi": "lăn lộn trên giường",
+      "emoji": "🛌",
+      "situation": "Bạn chưa muốn dậy nên cứ trở mình qua lại trên giường"
+    },
+    {
+      "id": "hit-snooze",
+      "en": "hit the snooze button",
+      "vi": "nhấn nút \"báo lại\"",
+      "emoji": "😴",
+      "situation": "Báo thức kêu nhưng bạn muốn ngủ thêm 5 phút nữa"
+    },
+    {
+      "id": "turn-off-alarm",
+      "en": "turn off the alarm clock",
+      "vi": "tắt chuông báo thức",
+      "emoji": "🔕",
+      "situation": "Bạn bấm cho đồng hồ báo thức im hẳn"
+    },
+    {
+      "id": "turn-on-radio",
+      "en": "turn on the radio",
+      "vi": "bật ra-đi-ô",
+      "emoji": "📻",
+      "situation": "Bạn muốn nghe nhạc buổi sáng từ cái đài"
+    },
+    {
+      "id": "wake-up-at",
+      "en": "wake up at 6 a.m.",
+      "vi": "thức dậy lúc 6 giờ sáng",
+      "emoji": "🕕",
+      "situation": "Nói giờ bạn mở mắt mỗi sáng"
+    },
+    {
+      "id": "half-asleep",
+      "en": "be half asleep",
+      "vi": "ngái ngủ",
+      "emoji": "🥱",
+      "situation": "Đã dậy rồi nhưng mắt vẫn díp lại, đầu óc chưa tỉnh"
+    },
+    {
+      "id": "get-up-early",
+      "en": "get up in the early morning",
+      "vi": "dậy sớm",
+      "emoji": "🌅",
+      "situation": "Trời còn tối bạn đã rời giường"
+    },
+    {
+      "id": "get-up-late-weekends",
+      "en": "get up late on (the) weekends",
+      "vi": "dậy muộn vào cuối tuần",
+      "emoji": "🗓️",
+      "situation": "Thứ Bảy, 11 giờ trưa bạn mới dậy"
+    },
+    {
+      "id": "all-nighter",
+      "en": "stay up all night",
+      "variants": [
+        "pull an all-nighter"
+      ],
+      "vi": "thức thâu đêm, thức trắng đêm",
+      "emoji": "🌙",
+      "situation": "Bạn uống nước tăng lực và không ngủ từ 9 giờ tối đến 6 giờ sáng"
+    },
+    {
+      "id": "oversleep",
+      "en": "oversleep",
+      "vi": "ngủ quên",
+      "emoji": "😱",
+      "situation": "Bạn mở mắt ra thì đã quá giờ đi học"
+    },
+    {
+      "id": "sleep-in",
+      "en": "sleep in",
+      "vi": "ngủ nướng",
+      "emoji": "🛏️",
+      "situation": "Không phải đi làm nên bạn cố ý ngủ thêm cho đã"
+    },
+    {
+      "id": "sit-up-stretch",
+      "en": "sit up in bed and stretch",
+      "vi": "ngồi trên giường và vươn vai",
+      "emoji": "🙆",
+      "situation": "Bạn ngồi dậy và giơ hai tay lên cho giãn người"
+    },
+    {
+      "id": "put-glasses-on",
+      "en": "put one's glasses on",
+      "vi": "đeo kính",
+      "emoji": "👓",
+      "situation": "Bạn cần nhìn rõ nên với lấy cặp kính"
+    },
+    {
+      "id": "get-out-of-bed",
+      "en": "get out of bed",
+      "vi": "ra khỏi giường, rời giường",
+      "emoji": "🚶",
+      "situation": "Bạn đặt chân xuống sàn và đứng dậy khỏi giường"
+    },
+    {
+      "id": "make-bed",
+      "en": "make one's bed",
+      "vi": "dọn giường",
+      "emoji": "🧹",
+      "situation": "Bạn kéo chăn cho phẳng, xếp gối gọn gàng"
+    },
+    {
+      "id": "fold-bedding",
+      "en": "fold up the bedding",
+      "vi": "gấp chăn đệm",
+      "emoji": "🧺",
+      "situation": "Bạn gấp chăn thành từng lớp xếp gọn một góc"
+    },
+    {
+      "id": "turn-on-light",
+      "en": "turn on the light",
+      "vi": "bật đèn",
+      "emoji": "💡",
+      "situation": "Phòng tối quá, bạn bấm công tắc"
+    },
+    {
+      "id": "open-window",
+      "en": "open the window",
+      "vi": "mở cửa sổ",
+      "emoji": "🪟",
+      "situation": "Bạn muốn không khí trong lành vào phòng"
+    },
+    {
+      "id": "look-outside",
+      "en": "look outside",
+      "vi": "nhìn ra bên ngoài",
+      "emoji": "👀",
+      "situation": "Bạn đứng ở cửa sổ xem trời mưa hay nắng"
+    },
+    {
+      "id": "check-email",
+      "en": "check one's email",
+      "vi": "kiểm tra email",
+      "emoji": "📧",
+      "situation": "Bạn mở hộp thư xem có thư công việc mới không"
+    },
+    {
+      "id": "check-texts",
+      "en": "check text messages on one's mobile phone",
+      "vi": "kiểm tra tin nhắn điện thoại",
+      "emoji": "📱",
+      "situation": "Bạn cầm điện thoại xem ai đã nhắn cho mình"
+    },
+    {
+      "id": "put-on-robe",
+      "en": "put on a shower robe",
+      "vi": "mặc áo choàng tắm",
+      "emoji": "🥋",
+      "situation": "Vừa tắm xong, bạn khoác áo choàng cho khỏi nhỏ nước"
+    },
+    {
+      "id": "put-on-sportswear",
+      "en": "put on one's sportswear",
+      "variants": [
+        "put on one's jogging suit"
+      ],
+      "vi": "mặc đồ thể thao (đồ chạy bộ)",
+      "emoji": "🏃",
+      "situation": "Bạn chuẩn bị đi chạy bộ buổi sáng"
+    },
+    {
+      "id": "leave-room",
+      "en": "get out of one's room",
+      "variants": [
+        "leave one's room"
+      ],
+      "vi": "ra khỏi (rời) phòng",
+      "emoji": "🚪",
+      "situation": "Bạn mở cửa bước ra khỏi phòng ngủ"
+    },
+    {
+      "id": "check-news",
+      "en": "turn on the news",
+      "variants": [
+        "check the news"
+      ],
+      "vi": "bật kênh thời sự / kiểm tra tin tức",
+      "emoji": "📺",
+      "situation": "Bạn muốn biết hôm nay có tin gì mới"
+    }
+  ],
+  "sentences": [
+    {
+      "en": "He turned over in bed as the alarm went off in the early morning.",
+      "vi": "Anh ấy lăn lộn trên giường khi báo thức kêu vào sáng sớm.",
+      "phraseIds": [
+        "turn-over-in-bed",
+        "alarm-goes-off"
+      ]
+    },
+    {
+      "en": "I usually wake up at 7 a.m. for work, but I sleep in on the weekends.",
+      "vi": "Tôi thường dậy lúc 7 giờ sáng để đi làm, nhưng tôi ngủ nướng vào cuối tuần.",
+      "phraseIds": [
+        "wake-up-at",
+        "sleep-in"
+      ]
+    },
+    {
+      "en": "She was half asleep throughout the whole class.",
+      "vi": "Cô ấy ngái ngủ trong suốt giờ học.",
+      "phraseIds": [
+        "half-asleep"
+      ]
+    },
+    {
+      "en": "I pulled an all-nighter to prepare for the quiz today.",
+      "vi": "Tôi đã thức thâu đêm để chuẩn bị cho bài kiểm tra hôm nay.",
+      "phraseIds": [
+        "all-nighter"
+      ]
+    },
+    {
+      "en": "I overslept today and I am late for school.",
+      "vi": "Hôm nay tôi ngủ quên và đi học muộn.",
+      "phraseIds": [
+        "oversleep"
+      ]
+    },
+    {
+      "en": "Sitting up in bed and stretching is a good way to start the day.",
+      "vi": "Ngồi trên giường và vươn vai là cách tốt để bắt đầu ngày mới.",
+      "phraseIds": [
+        "sit-up-stretch"
+      ]
+    },
+    {
+      "en": "I always make my bed before I leave my room.",
+      "vi": "Tôi luôn dọn giường trước khi rời khỏi phòng.",
+      "phraseIds": [
+        "make-bed",
+        "leave-room"
+      ]
+    },
+    {
+      "en": "We don't open the windows in mornings during the winter.",
+      "vi": "Vào mùa đông, chúng tôi không mở cửa sổ vào buổi sáng.",
+      "phraseIds": [
+        "open-window"
+      ]
+    },
+    {
+      "en": "I have a habit of checking my business email in the morning.",
+      "vi": "Tôi có thói quen kiểm tra email công việc vào buổi sáng.",
+      "phraseIds": [
+        "check-email"
+      ]
+    },
+    {
+      "en": "Please put on a shower robe. You are dripping all over the floor.",
+      "vi": "Mặc áo choàng tắm vào đi. Con đang làm nước vung vãi khắp sàn đấy.",
+      "phraseIds": [
+        "put-on-robe"
+      ]
+    }
+  ]
+}
