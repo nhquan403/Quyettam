@@ -82,11 +82,14 @@ export default function ImportPage() {
                   className="btn h-11 w-11 p-0 text-danger"
                   aria-label={`Xóa bài ${c.data.title}`}
                   onClick={async () => {
-                    const ok = await confirm({ title: `Xóa bài “${c.data.title}”?`, message: 'Bài và thẻ ôn tập của bài sẽ bị xóa. Câu bạn viết và bản ghi âm vẫn được giữ.', confirmText: 'Xóa', danger: true });
+                    const ok = await confirm({ title: `Xóa bài “${c.data.title}”?`, message: 'Bài, thẻ ôn tập và tiến độ học thuộc của bài sẽ bị xóa. Câu bạn viết và bản ghi âm vẫn được giữ.', confirmText: 'Xóa', danger: true });
                     if (!ok) return;
-                    await db.transaction('rw', db.customUnits, db.cards, async () => {
+                    await db.transaction('rw', db.customUnits, db.cards, db.mastery, async () => {
                       await db.customUnits.delete(c.id);
-                      if (!BUILTIN_UNITS.some((u) => u.id === c.id)) await db.cards.where('unitId').equals(c.id).delete();
+                      if (!BUILTIN_UNITS.some((u) => u.id === c.id)) {
+                        await db.cards.where('unitId').equals(c.id).delete();
+                        await db.mastery.where('unitId').equals(c.id).delete();
+                      }
                     });
                     toast('Đã xóa bài');
                   }}

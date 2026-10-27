@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
 import { STEPS } from '../components/Stepper';
 import { db } from '../lib/db';
-import { isRemembered } from '../lib/srs';
+import { MAX_LEVEL } from '../lib/mastery';
 import { useUnits } from '../lib/units';
 import type { Unit } from '../lib/types';
 
 export default function UnitsPage() {
   const units = useUnits();
   const stats = useLiveQuery(async () => {
-    const [progress, cards] = await Promise.all([db.progress.toArray(), db.cards.toArray()]);
-    return { progress: new Map(progress.map((p) => [p.unitId, p])), cards };
+    const [progress, mastery] = await Promise.all([db.progress.toArray(), db.mastery.toArray()]);
+    return { progress: new Map(progress.map((p) => [p.unitId, p])), mastery };
   }, []);
 
   const chapters = new Map<number, Unit[]>();
@@ -37,8 +37,9 @@ export default function UnitsPage() {
           <ul className="space-y-3">
             {list.map((u) => {
               const p = stats?.progress.get(u.id);
-              const remembered = stats?.cards.filter((c) => c.unitId === u.id && isRemembered(c)).length ?? 0;
-              const pct = Math.round((remembered / u.phrases.length) * 100);
+              const ids = new Set(u.phrases.map((p) => p.id));
+              const memorised = stats?.mastery.filter((m) => m.unitId === u.id && ids.has(m.phraseId) && m.level >= MAX_LEVEL).length ?? 0;
+              const pct = Math.round((memorised / u.phrases.length) * 100);
               return (
                 <li key={u.id}>
                   <Link to={`/bai-hoc/${u.id}`} className="card block p-4">
@@ -49,7 +50,7 @@ export default function UnitsPage() {
                       </div>
                       <p className="text-right">
                         <span className="block text-xl font-bold text-success tabular-nums">{pct}%</span>
-                        <span className="block text-xs text-muted">đã nhớ</span>
+                        <span className="block text-xs text-muted">đã thuộc</span>
                       </p>
                     </div>
                     <ol className="mt-3 flex gap-2" aria-label="Tiến độ các bước">

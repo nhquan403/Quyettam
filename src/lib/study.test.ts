@@ -4,6 +4,7 @@ import unit01 from '../data/unit-01.json';
 import { db } from './db';
 import { exportBackup, importBackup, wipeAll } from './backup';
 import { updateSettings } from './settings';
+import { recordAnswer } from './mastery';
 import { completeStep, gradeCard, reviewQueue } from './study';
 import type { Unit } from './types';
 
@@ -37,5 +38,17 @@ describe('study flow', () => {
     const rec = (await db.recordings.toArray())[0];
     expect(Array.from(new Uint8Array(await rec.blob.arrayBuffer()))).toEqual([1, 2, 3]);
     expect((await db.progress.get(unit.id))?.done.learn).toBe(today);
+  });
+
+  it('round-trips mastery and still imports an old backup without it', async () => {
+    await recordAnswer(unit.id, 'sleep-in', 'correct');
+    const backup = JSON.parse(JSON.stringify(await exportBackup()));
+    await wipeAll();
+    await importBackup(backup);
+    expect((await db.mastery.get(`${unit.id}:sleep-in`))?.level).toBe(1);
+
+    delete backup.tables.mastery;
+    await importBackup(backup);
+    expect(await db.mastery.count()).toBe(0);
   });
 });

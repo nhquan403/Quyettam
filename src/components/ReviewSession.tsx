@@ -1,8 +1,12 @@
 import { CheckCircle2, RotateCcw } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { checkAnswer, type Check, type CheckResult } from '../lib/answer-check';
+import { recordAnswer } from '../lib/mastery';
+import { useSettings } from '../lib/settings';
 import type { Grade } from '../lib/srs';
 import { gradeCard, reviewQueue } from '../lib/study';
 import type { Card, Phrase, Unit } from '../lib/types';
+import { Feedback } from './exercises';
 import SpeakButtons from './SpeakButtons';
 
 const GRADES: { grade: Grade; label: string; hint: string; cls: string }[] = [
@@ -11,6 +15,9 @@ const GRADES: { grade: Grade; label: string; hint: string; cls: string }[] = [
   { grade: 'good', label: 'Nhớ', hint: 'nói được', cls: 'bg-primary-soft text-primary-strong' },
   { grade: 'easy', label: 'Dễ', hint: 'nói ngay', cls: 'bg-success-soft text-success' },
 ];
+
+/** In "Gõ đáp án" mode the typed answer decides the SM-2 grade. */
+const TYPED_GRADE: Record<CheckResult, Grade> = { correct: 'good', near: 'hard', wrong: 'again' };
 
 export default function ReviewSession({ units, unitId, onFinish, emptyText }: { units: Unit[]; unitId?: string; onFinish?: () => void; emptyText: string }) {
   const [queue, setQueue] = useState<Card[] | null>(null);
@@ -21,6 +28,9 @@ export default function ReviewSession({ units, unitId, onFinish, emptyText }: { 
   const [saving, setSaving] = useState(false);
   const busy = useRef(false);
   const cardRef = useRef<HTMLButtonElement>(null);
+  const typing = useSettings().reviewMode === 'type';
+  const [typed, setTyped] = useState<Check | null>(null);
+  const [answer, setAnswer] = useState('');
 
   const lookup = useMemo(() => {
     const m = new Map<string, Phrase>();
@@ -80,19 +90,22 @@ export default function ReviewSession({ units, unitId, onFinish, emptyText }: { 
     );
   }
 
-  const grade = async (g: Grade) => {
+  const grade = async (g: Grade, typedResult?: CheckResult) => {
     if (busy.current) return; // ignore double taps while the grade is saving
     busy.current = true;
     setSaving(true);
     try {
       const next = await gradeCard(card, g);
+      if (typedResult) await recordAnswer(card.unitId, card.phraseId, typedResult);
       if (g === 'again') setQueue((q) => [...q!, next]);
       setStats((s) => ({ done: s.done + 1, again: s.again + (g === 'again' ? 1 : 0) }));
       setRevealed(false);
+      setTyped(null);
+      setAnswer('');
       const last = index + 1 >= queue.length && g !== 'again';
       setIndex((i) => i + 1);
       if (last) onFinish?.();
-      requestAnimationFrame(() => cardRef.current?.focus());
+      if (!typing) requestAnimationFrame(() => cardRef.current?.focus());
     } finally {
       busy.current = false;
       setSaving(false);
@@ -111,7 +124,7 @@ export default function ReviewSession({ units, unitId, onFinish, emptyText }: { 
       <button
         ref={cardRef}
         type="button"
-        onClick={() => setRevealed(true)}
+        onClick={() => !typing && setRevealed(true)}
         className="card flex min-h-80 w-full flex-col items-center justify-center gap-3 p-6 text-center"
       >
         <span className="text-6xl" aria-hidden>{phrase.emoji}</span>
@@ -123,10 +136,51 @@ export default function ReviewSession({ units, unitId, onFinish, emptyText }: { 
             <p className="mt-1 text-muted">{phrase.vi}</p>
           </div>
         ) : (
-          <p className="mt-2 text-sm text-muted">Nói to câu tiếng Anh, rồi chạm để lật thẻ</p>
+          <p className="mt-2 text-sm text-muted">{typing ? 'Gõ cụm từ tiếng Anh vào ô bên dưới' : 'Nói to câu tiếng Anh, rồi chạm để lật thẻ'}</p>
         )}
       </button>
-      {revealed ? (
+      {typing && revealed && typed ? (
+        <Feedback check={typed} speakText={phrase.en} onContinue={() => grade(TYPED_GRADE[typed.result], typed.result)} />
+      ) : typing ? (
+        <form
+          className="mt-4"
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (!answer.trim()) return;
+            setTyped(checkAnswer(answer, [phrase.en, ...(phrase.variants ?? [])]));
+            setRevealed(true);
+          }}
+        >
+          <label className="label" htmlFor="review-answer">Cụm từ tiếng Anh</label>
+          <input
+            key={index}
+            id="review-answer"
+            className="input text-lg"
+            lang="en"
+            autoFocus
+            autoComplete="off"
+            autoCapitalize="off"
+            autoCorrect="off"
+            spellCheck={false}
+            enterKeyHint="done"
+            value={answer}
+            onChange={(e) => setAnswer(e.target.value)}
+          />
+          <div className="mt-3 grid grid-cols-[auto_1fr] gap-2">
+            <button
+              type="button"
+              className="btn btn-ghost"
+              onClick={() => {
+                setTyped(checkAnswer('', [phrase.en]));
+                setRevealed(true);
+              }}
+            >
+              Không biết
+            </button>
+            <button type="submit" className="btn btn-primary" disabled={!answer.trim()}>Kiểm tra</button>
+          </div>
+        </form>
+      ) : revealed ? (
         <>
           <div className="mt-4"><SpeakButtons text={phrase.en} /></div>
           <p className="mt-5 mb-2 text-center text-sm font-semibold text-muted">Bạn nhớ cụm từ này thế nào?</p>

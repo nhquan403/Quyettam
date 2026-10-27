@@ -1,5 +1,5 @@
 import Dexie, { type Table } from 'dexie';
-import type { Card, CustomUnit, MetaRow, Recording, StudyDay, UnitProgress, UserSentence } from './types';
+import type { Card, CustomUnit, Mastery, MetaRow, Recording, StudyDay, UnitProgress, UserSentence } from './types';
 
 export class AppDB extends Dexie {
   cards!: Table<Card, string>;
@@ -9,6 +9,7 @@ export class AppDB extends Dexie {
   customUnits!: Table<CustomUnit, string>;
   meta!: Table<MetaRow, string>;
   studyDays!: Table<StudyDay, string>;
+  mastery!: Table<Mastery, string>;
 
   constructor(name = 'hoc-cum-tu') {
     super(name);
@@ -21,10 +22,12 @@ export class AppDB extends Dexie {
       meta: 'key',
       studyDays: 'date',
     });
+    // v2 only adds the mastery table; every v1 table and its rows are kept as-is.
+    this.version(2).stores({ mastery: 'key, unitId, level' });
   }
 }
 
 export const db = new AppDB();
 
-export const TABLES = ['cards', 'progress', 'sentences', 'recordings', 'customUnits', 'meta', 'studyDays'] as const;
+export const TABLES = ['cards', 'progress', 'sentences', 'recordings', 'customUnits', 'meta', 'studyDays', 'mastery'] as const;
 export type TableName = (typeof TABLES)[number];

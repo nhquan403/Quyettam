@@ -122,6 +122,30 @@ export default function SettingsPage() {
           }}
         />
         <p className="mt-1 text-sm text-muted">Gợi ý 10–15 thẻ. Ôn trong một bài học thì không bị giới hạn.</p>
+        <fieldset className="mt-5">
+          <legend className="label">Cách ôn tập</legend>
+          <div className="grid grid-cols-2 gap-2">
+            {([['self', 'Tự chấm', 'Lật thẻ rồi tự chọn Quên/Khó/Nhớ/Dễ'], ['type', 'Gõ đáp án', 'Gõ cụm từ, app tự chấm']] as const).map(([value, label, hint]) => (
+              <label key={value} className={`flex cursor-pointer flex-col rounded-2xl border-2 p-3 ${settings.reviewMode === value ? 'border-primary bg-primary-soft' : 'border-line'}`}>
+                <span className="flex items-center gap-2 font-semibold">
+                  <input type="radio" name="reviewMode" value={value} checked={settings.reviewMode === value} onChange={() => updateSettings({ reviewMode: value })} className="h-4 w-4 accent-[var(--color-primary)]" />
+                  {label}
+                </span>
+                <span className="mt-1 text-xs text-muted">{hint}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      </section>
+
+      <section className="card mb-4 p-5" aria-labelledby="practice-h">
+        <h2 id="practice-h" className="mb-3 text-lg font-bold">Học thuộc</h2>
+        <label className="label" htmlFor="practiceSize">Số câu mỗi phiên luyện: {settings.practiceSize}</label>
+        <input
+          id="practiceSize" type="range" min={5} max={30} step={5} value={settings.practiceSize}
+          onChange={(e) => updateSettings({ practiceSize: Number(e.target.value) })}
+          className="h-11 w-full accent-[var(--color-primary)]"
+        />
       </section>
 
       <section id="sao-luu" className="card mb-4 space-y-3 p-5" aria-labelledby="backup-h">

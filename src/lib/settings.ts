@@ -1,8 +1,9 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from './db';
 
-export type Settings = { voiceURI: string; rate: number; newPerDay: number };
-export const DEFAULT_SETTINGS: Settings = { voiceURI: '', rate: 1, newPerDay: 15 };
+export type ReviewMode = 'self' | 'type';
+export type Settings = { voiceURI: string; rate: number; newPerDay: number; practiceSize: number; reviewMode: ReviewMode };
+export const DEFAULT_SETTINGS: Settings = { voiceURI: '', rate: 1, newPerDay: 15, practiceSize: 10, reviewMode: 'self' };
 export const SLOW_RATE = 0.7;
 
 export async function getMeta<T>(key: string): Promise<T | undefined> {

@@ -46,3 +46,15 @@ export type Recording = {
 export type CustomUnit = { id: string; data: Unit; importedAt: number };
 export type MetaRow = { key: string; value: unknown };
 export type StudyDay = { date: string };
+
+/** Active-recall progress of one phrase: level 0..5, 5 = memorised ("Đã thuộc"). */
+export type Mastery = {
+  key: string; // `${unitId}:${phraseId}`
+  unitId: string;
+  phraseId: string;
+  level: number;
+  correct: number;
+  wrong: number;
+  lastPracticed?: number;
+  starred?: boolean;
+};

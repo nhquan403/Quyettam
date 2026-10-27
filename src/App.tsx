@@ -5,6 +5,10 @@ import { UiProvider } from './components/ui';
 import HomePage from './pages/HomePage';
 import ImportPage from './pages/ImportPage';
 import LessonPage from './pages/LessonPage';
+import MatchPage from './pages/memorize/MatchPage';
+import MemorizePage from './pages/memorize/MemorizePage';
+import NotebookPage from './pages/memorize/NotebookPage';
+import PracticePage from './pages/memorize/PracticePage';
 import ReviewPage from './pages/ReviewPage';
 import SettingsPage from './pages/SettingsPage';
 import UnitsPage from './pages/UnitsPage';
@@ -23,6 +27,10 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/bai-hoc" element={<UnitsPage />} />
           <Route path="/bai-hoc/:unitId" element={<LessonPage />} />
+          <Route path="/hoc-thuoc" element={<MemorizePage />} />
+          <Route path="/hoc-thuoc/luyen" element={<PracticePage />} />
+          <Route path="/hoc-thuoc/ghep-cap" element={<MatchPage />} />
+          <Route path="/hoc-thuoc/so-tay" element={<NotebookPage />} />
           <Route path="/on-tap" element={<ReviewPage />} />
           <Route path="/ke-chuyen" element={<WeeklyPage />} />
           <Route path="/cai-dat" element={<SettingsPage />} />

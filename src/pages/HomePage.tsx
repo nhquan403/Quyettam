@@ -1,10 +1,11 @@
-import { ArrowRight, BookOpen, Flame, Layers, Mic2 } from 'lucide-react';
+import { ArrowRight, BookOpen, Brain, Flame, Layers, Mic2 } from 'lucide-react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Link } from 'react-router-dom';
 import BackupBanner from '../components/BackupBanner';
 import { STEPS } from '../components/Stepper';
 import { db } from '../lib/db';
 import { streak } from '../lib/dates';
+import { learnedItems, MAX_LEVEL } from '../lib/mastery';
 import { reviewQueue } from '../lib/study';
 import { useUnits } from '../lib/units';
 
@@ -17,12 +18,13 @@ export default function HomePage() {
   const units = useUnits();
   const data = useLiveQuery(async () => {
     if (!units) return undefined;
-    const [due, days, progress] = await Promise.all([reviewQueue(units), db.studyDays.toCollection().primaryKeys(), db.progress.toArray()]);
+    const [due, days, progress, learned] = await Promise.all([reviewQueue(units), db.studyDays.toCollection().primaryKeys(), db.progress.toArray(), learnedItems(units)]);
     const next = units.find((u) => {
       const p = progress.find((x) => x.unitId === u.id);
       return !p || STEPS.some((s) => !p.done[s.id]);
     });
-    return { due: due.length, streak: streak(days as string[]), next, progress };
+    const memorised = learned.filter((i) => i.mastery.level >= MAX_LEVEL).length;
+    return { due: due.length, streak: streak(days as string[]), next, progress, memorised, learned: learned.length };
   }, [units]);
 
   const next = data?.next;
@@ -48,6 +50,15 @@ export default function HomePage() {
           <p className="text-sm text-muted">thẻ cần ôn hôm nay</p>
         </div>
       </div>
+
+      <Link to="/hoc-thuoc" className="card mb-4 flex items-center gap-3 p-4">
+        <Brain size={24} className="shrink-0 text-success" aria-hidden />
+        <span className="flex-1">
+          <span className="block text-sm text-muted">Đã thuộc</span>
+          <span className="block text-xl font-bold tabular-nums">{data?.memorised ?? 0} / {data?.learned ?? 0} cụm từ</span>
+        </span>
+        <ArrowRight size={22} className="text-muted" aria-hidden />
+      </Link>
 
       <Link to="/on-tap" className={`btn mb-6 w-full ${data?.due ? 'btn-primary' : 'btn-ghost'}`}>
         <Layers size={20} aria-hidden /> {data?.due ? 'Ôn ngay' : 'Không có thẻ cần ôn'}
