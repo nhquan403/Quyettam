@@ -17,7 +17,15 @@ npm run build    # tạo thư mục dist/ để đưa lên mạng
 Thư mục `dist/` là web tĩnh dùng đường dẫn tương đối, nên đặt ở thư mục nào cũng chạy được.
 
 - Cloudflare Pages: lệnh tạo bản là `npm run build`, thư mục xuất là `dist`.
-- GitHub Pages: đưa nội dung `dist/` lên nhánh hoặc thư mục mà Pages phục vụ.
+- GitHub Pages (đang dùng): app chạy ở https://nhquan403.github.io/Quyettam/. Pages phục vụ nhánh `gh-pages`, nhánh này chỉ chứa bản build. Để cập nhật:
+
+  ```bash
+  npm run build
+  cd dist && touch .nojekyll && git init -b gh-pages && git add -A && git commit -m "deploy"
+  git push -f https://github.com/nhquan403/Quyettam.git gh-pages
+  ```
+
+  Sau khi đẩy lên khoảng 1 phút thì trang được cập nhật. App đã cài trên điện thoại sẽ tự lấy bản mới ở lần mở kế tiếp.
 
 Trang phải chạy qua HTTPS. Nếu không, app không cài được lên màn hình chính, không ghi âm được và không dùng được khi offline.
 
